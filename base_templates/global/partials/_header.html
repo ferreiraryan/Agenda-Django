@@ -23,6 +23,7 @@
               logout  
             </a>
           </li>
+          
         {% else %}
           <li class="menu-item">
           <a href="{% url "contact:login" %}" class="menu-link">
@@ -34,14 +35,23 @@
               Register  
             </a>
           </li>
-
+          
         {% endif %}
+        <li class="menu-item">
+          <a href="{% url "contact:public" %}" class="menu-link">
+              Public
+            </a>
+          </li>
       </ul>
     </nav>
 
     <div class="search">
-      <form 
-        action="{% url "contact:search" %}"
+      <form
+        {% if '/public/' in request.path %}
+        action="{% url "contact:search_public" %}"
+        {% else %}
+        action="{% url "contact:search_index" %}"
+        {% endif %}
         method="GET"
       >
         <input 
